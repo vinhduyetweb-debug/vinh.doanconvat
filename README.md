@@ -1,18 +1,39 @@
-# Bé Đoán Con Vật - Pastel Disney PWA
+# Bé Đoán Con Vật - Magic Egg Pro
 
-## Tính năng
-- HTML tĩnh, deploy Vercel không cần build
-- UI pastel kiểu Disney/kids
-- Flow game: túi mù → thơ 4 câu → 4 đáp án → pháo hoa → thẻ kiến thức
-- Bộ dữ liệu 100 con vật
-- Tự sinh thơ 4 câu từ đặc điểm động vật
-- Vuốt lên/xuống kiểu TikTok để đổi câu
-- Lưu điểm bằng localStorage
-- Tối ưu mobile/iPad
-- Không dùng service worker để tránh lỗi cache F5
+## Nâng cấp trong bản này
+- Thay túi mù bằng trứng thần kỳ.
+- Trứng rung, nứt dần, ló mắt/con vật.
+- Đoán đúng: pháo hoa + âm thanh chiến thắng.
+- Đoán sai: hiệu ứng bom sắp nổ + âm thanh bom.
+- Sau khi đoán đúng: hiện video 5 giây.
+- Có fallback bằng icon động vật nếu chưa gắn link video MP4.
+- Vuốt lên/xuống kiểu TikTok.
+- 100 con vật.
+- HTML tĩnh, deploy Vercel không cần build.
+- Không dùng service worker để tránh lỗi cache F5.
+
+## Cách thêm video con vật thật
+
+Trong `app.js`, mỗi con vật có trường:
+
+```js
+videoUrl: ""
+```
+
+Thay bằng link MP4 thật, ví dụ:
+
+```js
+videoUrl: "https://your-domain.com/videos/cat.mp4"
+```
+
+Khuyến nghị:
+- Dùng file `.mp4`.
+- Video dài 5–10 giây.
+- Đặt video trong thư mục `/videos` khi deploy, hoặc dùng CDN.
+- Nếu dùng Google Drive, cần link trực tiếp phát được bằng thẻ `<video>`, không phải link xem thông thường.
 
 ## Deploy Vercel
-Kéo thả toàn bộ thư mục lên Vercel hoặc chạy:
+Kéo thả thư mục lên Vercel hoặc chạy:
 
 ```bash
 vercel --prod

@@ -1,9 +1,9 @@
 {
-  "name": "Bé Đoán Con Vật",
-  "short_name": "Đoán Vật",
+  "name": "Bé Đoán Con Vật Magic Egg Pro",
+  "short_name": "Magic Egg",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffdff2",
-  "theme_color": "#ffdff2",
+  "background_color": "#fff3d7",
+  "theme_color": "#fff3d7",
   "orientation": "portrait"
 }

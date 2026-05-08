@@ -6,6 +6,7 @@ const ANIMALS = RAW.map((x, i) => ({
   emoji: x[1],
   habitat: x[2],
   facts: [x[3], x[4], x[5], x[6]],
+  videoUrl: "",
   poem: [
     "Bé thấy " + x[3] + ",",
     "Con này có " + x[4] + ",",
@@ -16,9 +17,10 @@ const ANIMALS = RAW.map((x, i) => ({
 }));
 
 const app = document.getElementById("app");
-let index = Number(localStorage.getItem("animal_index") || 0);
-let score = Number(localStorage.getItem("animal_score") || 0);
-let unlocked = new Set(JSON.parse(localStorage.getItem("animal_unlocked") || "[]"));
+const fxLayer = document.getElementById("fxLayer");
+let index = Number(localStorage.getItem("animal_pro_index") || 0);
+let score = Number(localStorage.getItem("animal_pro_score") || 0);
+let unlocked = new Set(JSON.parse(localStorage.getItem("animal_pro_unlocked") || "[]"));
 
 function shuffle(arr) {
   const a = [...arr];
@@ -35,9 +37,9 @@ function choicesFor(animal) {
 }
 
 function saveState() {
-  localStorage.setItem("animal_score", String(score));
-  localStorage.setItem("animal_index", String(index));
-  localStorage.setItem("animal_unlocked", JSON.stringify([...unlocked]));
+  localStorage.setItem("animal_pro_score", String(score));
+  localStorage.setItem("animal_pro_index", String(index));
+  localStorage.setItem("animal_pro_unlocked", JSON.stringify([...unlocked]));
 }
 
 function render() {
@@ -47,21 +49,25 @@ function render() {
     <section class="screen">
       <header class="top">
         <div>
-          <h1>🎀 Bé Đoán Con Vật</h1>
-          <p>Vuốt lên/xuống để đổi câu đố • ${index + 1}/100</p>
+          <h1>🥚 Bé Đoán Con Vật</h1>
+          <p>Trứng thần kỳ • Vuốt lên/xuống • ${index + 1}/100</p>
         </div>
         <div class="score">⭐ ${score}</div>
       </header>
 
       <div class="mystery">
-        <div class="bag" id="bag">
-          <div class="bagTop"></div>
-          <div class="bagBody">?</div>
-          <div class="spark s1">✨</div>
-          <div class="spark s2">💫</div>
+        <div class="eggWrap" id="eggWrap">
+          <div class="egg">
+            <div class="crack">
+              <svg viewBox="0 0 100 130" fill="none">
+                <path d="M50 2 L42 25 L58 42 L45 61 L55 78 L43 100 L50 128" stroke="#7d5a20" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="eggEye">${animal.emoji}</div>
         </div>
         <div class="shadowAnimal" id="shadowAnimal">${animal.emoji}</div>
-        <button class="openBtn" id="openBtn">Xé túi mù</button>
+        <button class="openBtn" id="openBtn">Chạm để trứng nứt</button>
       </div>
 
       <div class="poemCard">
@@ -80,19 +86,32 @@ function render() {
           <span>🏡 ${animal.habitat}</span>
           <span>📚 Đã mở khóa ${unlocked.size}/100</span>
         </div>
-        <button class="nextBtn" id="nextBtn">Câu tiếp theo ➜</button>
+        <div class="cardActions">
+          <button class="videoBtn" id="videoBtn">▶ Video 5 giây</button>
+          <button class="nextBtn" id="nextBtn">Câu tiếp theo ➜</button>
+        </div>
       </article>
     </section>
   `;
 
-  document.getElementById("openBtn").onclick = revealBag;
+  document.getElementById("openBtn").onclick = crackEgg;
   document.querySelectorAll(".answer").forEach(btn => btn.onclick = () => checkAnswer(btn, animal));
   bindSwipe();
 }
 
-function revealBag() {
-  document.getElementById("bag").classList.add("opened");
-  document.getElementById("shadowAnimal").classList.add("show");
+function crackEgg() {
+  const egg = document.getElementById("eggWrap");
+  egg.classList.add("peeking");
+  playTinyMagic();
+}
+
+function revealEgg() {
+  const egg = document.getElementById("eggWrap");
+  egg.classList.add("peeking");
+  setTimeout(() => {
+    egg.classList.add("opened");
+    document.getElementById("shadowAnimal").classList.add("show");
+  }, 280);
 }
 
 function checkAnswer(btn, animal) {
@@ -102,16 +121,21 @@ function checkAnswer(btn, animal) {
     score++;
     unlocked.add(animal.id);
     saveState();
-    confetti();
-    revealBag();
+    playWinSound();
+    firework();
+    revealEgg();
     document.getElementById("infoCard").classList.remove("hidden");
     document.getElementById("nextBtn").onclick = next;
+    document.getElementById("videoBtn").onclick = () => showVideo(animal);
     [...document.querySelectorAll(".answer")].forEach(b => b.disabled = true);
+    setTimeout(() => showVideo(animal), 850);
   } else {
     btn.classList.add("wrong");
+    playBombSound();
+    bombFx();
     const old = btn.textContent;
-    btn.textContent = "🌸 Bé thử lại nhé";
-    setTimeout(() => { btn.classList.remove("wrong"); btn.textContent = old; }, 750);
+    btn.textContent = "💣 Bé thử lại nhé";
+    setTimeout(() => { btn.classList.remove("wrong"); btn.textContent = old; }, 950);
   }
 }
 
@@ -136,25 +160,100 @@ function bindSwipe() {
     if (!active) return;
     active = false;
     const dy = e.clientY - startY;
-    if (dy < -80) next();
-    if (dy > 80) prev();
+    if (Math.abs(dy) < 80) return;
+    if (document.querySelector(".videoModal")) return;
+    if (dy < 0) next();
+    else prev();
   });
 }
 
-function confetti() {
-  const layer = document.createElement("div");
-  layer.className = "confetti";
-  document.body.appendChild(layer);
+function showVideo(animal) {
+  const modal = document.createElement("div");
+  modal.className = "videoModal";
+  const videoHtml = animal.videoUrl
+    ? `<video id="animalVideo" src="${animal.videoUrl}" autoplay muted playsinline></video>`
+    : `<div class="videoFallback">${animal.emoji}</div>`;
+  modal.innerHTML = `
+    <div class="videoBox">
+      <h2>Video 5 giây: ${animal.name}</h2>
+      <div class="videoFrame">${videoHtml}</div>
+      <div class="videoTimer"><span></span></div>
+      <button class="nextBtn" id="closeVideoBtn">Đóng</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById("closeVideoBtn").onclick = () => modal.remove();
+  const v = document.getElementById("animalVideo");
+  if (v) {
+    v.currentTime = 0;
+    v.play().catch(() => {});
+    setTimeout(() => { v.pause(); modal.remove(); }, 5000);
+  } else {
+    setTimeout(() => modal.remove(), 5000);
+  }
+}
+
+function audioCtx() {
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return null;
+  return new Ctx();
+}
+
+function tone(ctx, freq, start, dur, type="sine", gain=.08) {
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+  g.gain.setValueAtTime(0.0001, ctx.currentTime + start);
+  g.gain.exponentialRampToValueAtTime(gain, ctx.currentTime + start + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + start + dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(ctx.currentTime + start);
+  osc.stop(ctx.currentTime + start + dur + 0.03);
+}
+
+function playWinSound() {
+  const ctx = audioCtx(); if (!ctx) return;
+  tone(ctx, 523, 0, .16, "triangle", .09);
+  tone(ctx, 659, .12, .18, "triangle", .09);
+  tone(ctx, 784, .25, .22, "triangle", .1);
+  tone(ctx, 1046, .43, .32, "triangle", .08);
+}
+
+function playTinyMagic() {
+  const ctx = audioCtx(); if (!ctx) return;
+  tone(ctx, 880, 0, .08, "sine", .04);
+  tone(ctx, 1320, .08, .12, "sine", .04);
+}
+
+function playBombSound() {
+  const ctx = audioCtx(); if (!ctx) return;
+  tone(ctx, 180, 0, .25, "sawtooth", .08);
+  tone(ctx, 120, .22, .35, "sawtooth", .09);
+  tone(ctx, 70, .48, .25, "square", .08);
+}
+
+function firework() {
   const icons = ["⭐","🌟","✨","💖","🎉","🌈"];
-  for (let i=0;i<48;i++) {
+  for (let i=0;i<64;i++) {
     const p = document.createElement("span");
+    p.className = "fxStar";
     p.textContent = icons[Math.floor(Math.random()*icons.length)];
     p.style.left = Math.random()*100 + "vw";
     p.style.animationDelay = Math.random()*0.4 + "s";
-    p.style.fontSize = (18 + Math.random()*20) + "px";
-    layer.appendChild(p);
+    p.style.fontSize = (18 + Math.random()*22) + "px";
+    fxLayer.appendChild(p);
+    setTimeout(() => p.remove(), 1800);
   }
-  setTimeout(() => layer.remove(), 1800);
+}
+
+function bombFx() {
+  const overlay = document.createElement("div");
+  overlay.className = "bombOverlay";
+  overlay.innerHTML = `<div class="bomb">💣</div>`;
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.innerHTML = `<div class="boom">💥</div>`, 1100);
+  setTimeout(() => overlay.remove(), 1750);
 }
 
 render();
