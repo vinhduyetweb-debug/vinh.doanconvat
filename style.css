@@ -1,0 +1,29 @@
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#ffdff2,#fff6d8)}
+button{font:inherit}
+#app{height:100dvh;overflow:hidden}
+.screen{height:100dvh;display:grid;grid-template-rows:auto minmax(160px,1fr) auto auto;gap:9px;padding:calc(env(safe-area-inset-top) + 10px) 10px calc(env(safe-area-inset-bottom) + 10px);max-width:760px;margin:auto;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.top h1{margin:0;color:#7a3a72;font-size:22px}.top p{margin:2px 0 0;color:#9a6a8f;font-size:12px}
+.score{background:#fff;border:2px solid #ffc3e6;border-radius:999px;padding:8px 11px;font-weight:900;color:#7a3a72;box-shadow:0 6px 16px rgba(151,79,128,.16)}
+.mystery{position:relative;display:grid;place-items:center;min-height:170px;background:rgba(255,255,255,.56);border:2px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:0 14px 35px rgba(136,78,117,.16);overflow:hidden}
+.bag{width:136px;height:150px;position:relative;animation:wobble 1.5s infinite ease-in-out;z-index:3}
+.bagTop{position:absolute;left:24px;right:24px;top:0;height:40px;background:#ff9ecd;border-radius:20px 20px 10px 10px;box-shadow:inset 0 -8px 0 rgba(255,255,255,.25)}
+.bagBody{position:absolute;left:0;right:0;bottom:0;height:120px;border-radius:34px;background:linear-gradient(145deg,#ff70b8,#ffbdde);display:grid;place-items:center;font-size:58px;font-weight:900;color:white;box-shadow:0 16px 30px rgba(185,72,135,.28)}
+.bag.opened{animation:tear .6s forwards}.bag.opened .bagBody{opacity:.2;transform:scale(.9) rotate(-8deg)}
+.spark{position:absolute;z-index:4}.s1{left:-15px;top:40px}.s2{right:-10px;bottom:20px}
+.shadowAnimal{position:absolute;font-size:120px;filter:brightness(0) blur(1px);opacity:.2;transform:scale(.65);transition:.5s;z-index:1}
+.shadowAnimal.show{filter:none;opacity:1;transform:scale(1)}
+.openBtn{position:absolute;bottom:10px;z-index:5;border:0;border-radius:999px;padding:10px 16px;background:#fff;color:#a04487;font-weight:900;box-shadow:0 8px 18px rgba(120,65,105,.18)}
+.poemCard{background:#fff;border:2px solid #ffd0ea;border-radius:22px;padding:11px 13px;box-shadow:0 10px 24px rgba(136,78,117,.13)}
+.poemCard p{margin:5px 0;color:#70405f;font-size:15px;font-weight:750;opacity:0;transform:translateY(8px);animation:lineIn .45s forwards;animation-delay:calc(var(--d)*.14s)}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.answer{border:0;border-radius:18px;background:#fff;color:#6c3d62;font-weight:900;font-size:16px;padding:13px 8px;box-shadow:0 8px 18px rgba(136,78,117,.14);border:2px solid #ffe3f2}
+.answer.correct{background:#c9ffdc;border-color:#61dc87;animation:pop .4s}.answer.wrong{background:#ffd9df;border-color:#ff7c93;animation:shake .35s}
+.infoCard{position:absolute;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom) + 10px);background:#fff;border:3px solid #ffd0ea;border-radius:26px;padding:14px;text-align:center;box-shadow:0 20px 50px rgba(112,55,95,.25);z-index:20}
+.infoCard.hidden{display:none}.animalHero{font-size:78px}.infoCard h2{margin:0 0 7px;color:#7a3a72}.infoCard p{margin:0;color:#70405f;line-height:1.42;font-weight:650}
+.chips{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:10px 0}.chips span{background:#fff2c7;border-radius:999px;padding:7px 9px;color:#765000;font-weight:800;font-size:12px}
+.nextBtn{border:0;border-radius:999px;padding:11px 18px;background:#ff78bd;color:white;font-weight:900;font-size:15px}
+.confetti{position:fixed;inset:0;z-index:100;pointer-events:none}.confetti span{position:absolute;top:-30px;animation:fall 1.6s linear forwards}
+@keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) scale(1.03)}}@keyframes tear{to{transform:scale(.72) translateY(18px) rotate(-12deg);opacity:.22}}@keyframes lineIn{to{opacity:1;transform:none}}@keyframes pop{50%{transform:scale(1.06)}}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.2}}
+@media(min-width:768px){.screen{max-width:920px;padding:18px;gap:14px}.top h1{font-size:34px}.top p{font-size:15px}.mystery{min-height:280px}.bag{width:190px;height:210px}.bagBody{height:166px;font-size:82px}.shadowAnimal{font-size:180px}.poemCard p{font-size:20px}.answer{font-size:21px;padding:20px}}

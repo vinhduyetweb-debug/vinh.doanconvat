@@ -1,0 +1,9 @@
+{
+  "name": "Bé Đoán Con Vật",
+  "short_name": "Đoán Vật",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffdff2",
+  "theme_color": "#ffdff2",
+  "orientation": "portrait"
+}
