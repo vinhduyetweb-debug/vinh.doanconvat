@@ -283,6 +283,7 @@ function saveState() {
 function render() {
   const animal = ANIMALS[index % ANIMALS.length];
   const choices = choicesFor(animal);
+  const unlockedAfterCorrect = unlocked.has(animal.id) ? unlocked.size : unlocked.size + 1;
   app.innerHTML = `
     <section class="screen">
       <header class="top">
@@ -292,10 +293,17 @@ function render() {
         </div>
         <div class="score">⭐ ${score}</div>
       </header>
+      <div class="collectionPill">🐾 Bộ sưu tập của bé: ${unlocked.size}/${ANIMALS.length}</div>
 
       <div class="mystery">
+        <span class="stageDot dotOne"></span>
+        <span class="stageDot dotTwo"></span>
+        <span class="stageDot dotThree"></span>
+        <span class="stageSpark sparkOne">✨</span>
+        <span class="stageSpark sparkTwo">✦</span>
         <div class="eggWrap" id="eggWrap" role="button" tabindex="0" aria-label="Chạm vào trứng để mở">
           <div class="egg">
+            <span class="eggShine"></span>
             <div class="crack">
               <svg viewBox="0 0 100 130" fill="none">
                 <path d="M50 2 L42 25 L58 42 L45 61 L55 78 L43 100 L50 128" stroke="#7d5a20" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -305,7 +313,7 @@ function render() {
           <div class="eggEye">${visualHtml(animal, "eggPeekImage", "Ảnh hé lộ")}</div>
         </div>
         <div class="shadowAnimal" id="shadowAnimal">${visualHtml(animal, "animalRevealImage", "Ảnh")}</div>
-        <p class="eggHint">Chạm vào trứng để mở</p>
+        <p class="eggHint">Chạm vào trứng để mở bí mật</p>
       </div>
 
       <div class="poemCard">
@@ -317,16 +325,20 @@ function render() {
       </div>
 
       <article class="infoCard hidden" id="infoCard">
-        <p class="resultTitle">Đúng rồi!</p>
+        <p class="resultTitle">🎉 Đúng rồi!</p>
         <div class="animalHero">${visualHtml(animal, "animalHeroImage", "Ảnh")}</div>
-        <h2>${animal.name}</h2>
-        <p class="wowFact">${wowFactFor(animal)}</p>
+        <p class="unlockText">Bé vừa mở khóa: <strong>${animal.name}</strong></p>
+        <div class="wowFactBox">
+          <p class="wowLabel">✨ Bé biết không?</p>
+          <p class="wowFact">${wowFactFor(animal)}</p>
+        </div>
         <div class="chips">
           <span>🏡 ${animal.habitat}</span>
-          <span>📚 Đã mở khóa ${unlocked.size}/100</span>
+          <span>📚 Đã mở khóa ${unlockedAfterCorrect}/100</span>
+          <span>+1 sticker mới</span>
         </div>
         <div class="cardActions">
-          <button class="nextBtn" id="nextBtn">Câu tiếp theo ➜</button>
+          <button class="nextBtn" id="nextBtn">Mở trứng tiếp theo ➜</button>
         </div>
       </article>
     </section>
@@ -351,6 +363,7 @@ function crackEgg() {
   eggCracking = true;
   egg.classList.add("hatching");
   playEggCrackSound();
+  eggSparkleBurst(egg);
   setTimeout(() => {
     egg.classList.add("peeking");
     egg.classList.remove("hatching");
@@ -385,7 +398,7 @@ function checkAnswer(btn, animal) {
     playBombSound();
     bombFx();
     const old = btn.textContent;
-    btn.textContent = "💣 Bé thử lại nhé";
+    btn.textContent = "Thử lại nha!";
     setTimeout(() => { btn.classList.remove("wrong"); btn.textContent = old; }, 950);
   }
 }
@@ -496,7 +509,7 @@ function playBombSound() {
 
 function firework() {
   const icons = ["⭐","🌟","✨","💖","🎉","🌈"];
-  for (let i=0;i<64;i++) {
+  for (let i=0;i<36;i++) {
     const p = document.createElement("span");
     p.className = "fxStar";
     p.textContent = icons[Math.floor(Math.random()*icons.length)];
@@ -505,6 +518,18 @@ function firework() {
     p.style.fontSize = (18 + Math.random()*22) + "px";
     fxLayer.appendChild(p);
     setTimeout(() => p.remove(), 1800);
+  }
+}
+
+function eggSparkleBurst(egg) {
+  for (let i=0;i<8;i++) {
+    const p = document.createElement("span");
+    p.className = "eggBurst";
+    p.textContent = i % 2 ? "✦" : "✨";
+    p.style.setProperty("--x", Math.cos(i * Math.PI / 4) * 54 + "px");
+    p.style.setProperty("--y", Math.sin(i * Math.PI / 4) * 48 + "px");
+    egg.appendChild(p);
+    setTimeout(() => p.remove(), 760);
   }
 }
 

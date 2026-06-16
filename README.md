@@ -47,3 +47,13 @@ vercel --prod
 - Animal images are shown in answer choices, egg reveal, info card, and fallback video modal.
 - If a current animal does not have a safe matching image, the app falls back to the existing emoji.
 - No storage schema, route, localStorage key, or deployment structure was changed.
+
+## V1.1.2 — Viral Kid UI Polish Pack
+
+- Sân khấu chơi sinh động hơn.
+- Quả trứng có hiệu ứng chờ/chạm/nở.
+- Đáp án giống nút game hơn.
+- Màn trả lời đúng có ảnh lớn + Wow Fact đẹp hơn.
+- Có progress/sticker mở khóa nhẹ.
+- Animation nhẹ, hỗ trợ reduced motion.
+- Giữ nguyên nội dung, ảnh, font và logic.
