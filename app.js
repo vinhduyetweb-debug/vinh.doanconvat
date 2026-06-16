@@ -99,6 +99,12 @@ const ANIMAL_IMAGES = {
   "Bồ nông": "assets/animals/pelican.webp",
   "Cò": "assets/animals/stork.webp",
   "Lươn": "assets/animals/eel.webp",
+  "Ve sầu": "assets/animals/ve_sau.webp",
+  "Cua": "assets/animals/cua.webp",
+  "Bạch tuộc": "assets/animals/bach_tuoc.webp",
+  "Cá ngựa": "assets/animals/ca_ngua.webp",
+  "Tôm": "assets/animals/tom.webp",
+  "Ong": "assets/animals/ong.webp",
   "Dế": "assets/animals/cricket.webp"
 };
 
@@ -227,7 +233,13 @@ const ANIMAL_WOW_FACTS = {
   "Kỳ nhông": "Kỳ nhông có dáng giống thằn lằn lớn và chiếc mào trên lưng rất lạ. Bạn ấy thích nằm phơi nắng cho ấm. Nhìn kỳ nhông, bé dễ nhớ đến một bạn nhỏ mặc áo xanh của rừng.",
   "Bọ cánh cứng": "Bọ cánh cứng có lớp vỏ cứng bóng như áo giáp nhỏ. Bên dưới lớp vỏ ấy là đôi cánh được giấu gọn. Nhỏ xíu mà có bộ đồ thật chắc chắn, lạ ghê.",
   "Dế": "Dế có đôi chân sau khỏe nên nhảy rất nhanh. Buổi tối, tiếng dế gáy nghe như bản nhạc ngoài sân. Bé nghe tiếng dế là biết có một bạn nhỏ đang ở gần cỏ.",
-  "Cá chép": "Cá chép bơi nhẹ trong ao với lớp vảy óng ánh. Khi quẫy đuôi, mặt nước gợn thành vòng tròn nhỏ. Nhìn cá chép, bé sẽ thấy ao hồ cũng có những điều lấp lánh."
+  "Cá chép": "Cá chép bơi nhẹ trong ao với lớp vảy óng ánh. Khi quẫy đuôi, mặt nước gợn thành vòng tròn nhỏ. Nhìn cá chép, bé sẽ thấy ao hồ cũng có những điều lấp lánh.",
+  "Ve sầu": "Ve sầu có thể sống dưới lòng đất rất lâu, có khi tới nhiều năm liền. Nhưng khi bò lên mặt đất, chúng lại chỉ sống thêm một thời gian ngắn thôi. Vì vậy tiếng ve mùa hè nghe vừa rộn ràng vừa rất đặc biệt đó.",
+  "Cua": "Có những chú cua đực sẽ đứng canh và bảo vệ cua cái khi cua cái thay vỏ, vì lúc đó cua cái rất yếu. Nhưng thế giới loài cua không hiền như mình tưởng đâu. Trong tự nhiên, chúng cũng có lúc tranh giành và cư xử rất dữ dội. Thế giới động vật thật kỳ lạ phải không?",
+  "Bạch tuộc": "Bạch tuộc có tới 3 trái tim. Khi bơi nhanh, một trái tim còn tạm nghỉ một chút. Nghe giống một siêu anh hùng sống dưới biển vậy.",
+  "Cá ngựa": "Cá ngựa là một trong số ít loài mà con đực lại mang thai. Cá ngựa bố sẽ giữ những em bé cá ngựa trong bụng mình cho tới ngày chào đời. Thiên nhiên đúng là có nhiều điều bất ngờ lắm, bé nhỉ?",
+  "Tôm": "Nhiều loài tôm cũng có cuộc sống bận rộn và đầy cạnh tranh dưới nước. Có con tôm đực sẽ tranh chỗ ở, tranh lãnh thổ, thậm chí tranh cả bạn đời với nhau. Nhìn nhỏ bé vậy thôi, nhưng thế giới của tôm cũng náo nhiệt lắm đó.",
+  "Ong": "Ong thợ là những cô ong rất chăm chỉ. Chúng đi kiếm mật, chăm ong non và bảo vệ cả tổ suốt ngày. Còn ong đực lại có một vai trò rất khác, và nhiều con không sống lâu. Thế giới của loài ong nhỏ xíu mà bận rộn vô cùng."
 };
 
 
