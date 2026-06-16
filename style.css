@@ -12,26 +12,31 @@ button{font:inherit}
 .egg::before{content:"";position:absolute;left:22px;top:25px;width:32px;height:52px;border-radius:50%;background:rgba(255,255,255,.7);transform:rotate(24deg)}
 .crack{position:absolute;inset:0;opacity:0;transition:.35s}
 .crack svg{width:100%;height:100%}
-.eggEye{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%) scale(.2);font-size:46px;opacity:0;transition:.45s;z-index:5}
+.eggEye{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%) scale(.2);font-size:46px;opacity:0;transition:.45s;z-index:5;display:grid;place-items:center}
 .eggWrap.peeking .crack{opacity:1}.eggWrap.peeking .eggEye{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .eggWrap.opened{animation:eggOpen .7s forwards}.eggWrap.opened .egg{opacity:.2;transform:scale(.72) rotate(-12deg)}.eggWrap.opened .eggEye{opacity:0}
-.shadowAnimal{position:absolute;font-size:125px;filter:brightness(0) blur(1px);opacity:.18;transform:scale(.6);transition:.55s;z-index:1}
+.shadowAnimal{position:absolute;width:150px;height:150px;font-size:125px;filter:brightness(0) blur(1px);opacity:.18;transform:scale(.6);transition:.55s;z-index:1;display:grid;place-items:center}
 .shadowAnimal.show{filter:none;opacity:1;transform:scale(1)}
+.eggPeekImage{width:64px;height:64px;object-fit:cover;border-radius:22px;box-shadow:0 8px 18px rgba(120,65,105,.18)}
+.animalRevealImage{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 18px 22px rgba(90,50,80,.18))}
+.emojiVisual{display:grid;place-items:center}
 .openBtn{position:absolute;bottom:10px;z-index:6;border:0;border-radius:999px;padding:10px 16px;background:#fff;color:#a45b79;font-weight:900;box-shadow:0 8px 18px rgba(120,65,105,.18)}
 .poemCard{background:#fff;border:2px solid #ffd0ea;border-radius:22px;padding:11px 13px;box-shadow:0 10px 24px rgba(136,78,117,.13)}
 .poemCard p{margin:5px 0;color:#70405f;font-size:15px;font-weight:750;opacity:0;transform:translateY(8px);animation:lineIn .45s forwards;animation-delay:calc(var(--d)*.14s)}
 .answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.answer{border:0;border-radius:18px;background:#fff;color:#6c3d62;font-weight:900;font-size:16px;padding:13px 8px;box-shadow:0 8px 18px rgba(136,78,117,.14);border:2px solid #ffe3f2}
+.answer{border:0;border-radius:18px;background:#fff;color:#6c3d62;font-weight:900;font-size:16px;padding:10px 8px;box-shadow:0 8px 18px rgba(136,78,117,.14);border:2px solid #ffe3f2;display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px}
+.answerThumb{width:38px;height:38px;border-radius:13px;object-fit:cover;background:#fff3d7;box-shadow:0 4px 10px rgba(136,78,117,.12);flex:0 0 auto}
+.answerEmoji{font-size:25px;line-height:1;flex:0 0 auto}
 .answer.correct{background:#c9ffdc;border-color:#61dc87;animation:pop .4s}.answer.wrong{background:#ffd9df;border-color:#ff7c93;animation:shake .35s}
 .infoCard{position:absolute;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom) + 10px);background:#fff;border:3px solid #ffd0ea;border-radius:26px;padding:14px;text-align:center;box-shadow:0 20px 50px rgba(112,55,95,.25);z-index:20}
-.infoCard.hidden{display:none}.animalHero{font-size:76px}.infoCard h2{margin:0 0 7px;color:#8a5475}.infoCard p{margin:0;color:#70405f;line-height:1.42;font-weight:650}
+.infoCard.hidden{display:none}.animalHero{font-size:76px;display:grid;place-items:center}.animalHeroImage{width:112px;height:112px;object-fit:cover;border-radius:28px;background:#fff3d7;box-shadow:0 10px 24px rgba(136,78,117,.16)}.infoCard h2{margin:0 0 7px;color:#8a5475}.infoCard p{margin:0;color:#70405f;line-height:1.42;font-weight:650}
 .chips{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:10px 0}.chips span{background:#fff2c7;border-radius:999px;padding:7px 9px;color:#765000;font-weight:800;font-size:12px}
 .cardActions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.nextBtn,.videoBtn{border:0;border-radius:999px;padding:11px 16px;color:white;font-weight:900;font-size:14px}.nextBtn{background:#ff78bd}.videoBtn{background:#ffb13d}
 .videoModal{position:fixed;inset:0;background:rgba(60,27,52,.72);z-index:200;display:grid;place-items:center;padding:18px}
 .videoBox{width:min(680px,96vw);background:#fff;border-radius:28px;padding:14px;text-align:center;box-shadow:0 30px 70px rgba(0,0,0,.35)}
 .videoBox h2{margin:4px 0 10px;color:#8a5475}.videoFrame{height:min(48vh,360px);border-radius:22px;background:linear-gradient(135deg,#fff3c8,#ffdff1);display:grid;place-items:center;overflow:hidden}
-.videoFrame video{width:100%;height:100%;object-fit:cover}.videoFallback{font-size:110px;animation:floaty 1.6s infinite alternate}
+.videoFrame video{width:100%;height:100%;object-fit:cover}.videoFallback{font-size:110px;animation:floaty 1.6s infinite alternate;display:grid;place-items:center;width:100%;height:100%}.videoFallbackImage{width:100%;height:100%;object-fit:contain;padding:8px}
 .videoTimer{height:8px;border-radius:999px;background:#ffe4f2;margin:12px 4px;overflow:hidden}.videoTimer span{display:block;height:100%;background:#ff78bd;animation:timer5 5s linear forwards}
 #fxLayer{position:fixed;inset:0;pointer-events:none;z-index:300}.fxStar,.fxBomb{position:absolute;top:-30px;animation:fall 1.6s linear forwards}.bombOverlay{position:fixed;inset:0;z-index:250;pointer-events:none;display:grid;place-items:center}.bomb{font-size:105px;animation:bombPulse .9s ease-in-out 3}.boom{font-size:115px;animation:boom .6s ease-out forwards}
 @keyframes eggWobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) scale(1.03)}}@keyframes eggOpen{to{transform:scale(.7) translateY(20px) rotate(-14deg);opacity:.3}}@keyframes lineIn{to{opacity:1;transform:none}}@keyframes pop{50%{transform:scale(1.06)}}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.15}}@keyframes bombPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35) rotate(8deg)}}@keyframes boom{from{transform:scale(.2);opacity:1}to{transform:scale(1.6);opacity:0}}@keyframes floaty{from{transform:translateY(8px) scale(.96)}to{transform:translateY(-8px) scale(1.04)}}@keyframes timer5{from{width:100%}to{width:0%}}
-@media(min-width:768px){.screen{max-width:920px;padding:18px;gap:14px}.top h1{font-size:34px}.top p{font-size:15px}.mystery{min-height:300px}.eggWrap{width:220px;height:235px}.egg{width:176px;height:220px}.eggEye{font-size:66px}.shadowAnimal{font-size:190px}.poemCard p{font-size:20px}.answer{font-size:21px;padding:20px}.animalHero{font-size:96px}}
+@media(min-width:768px){.screen{max-width:920px;padding:18px;gap:14px}.top h1{font-size:34px}.top p{font-size:15px}.mystery{min-height:300px}.eggWrap{width:220px;height:235px}.egg{width:176px;height:220px}.eggEye{font-size:66px}.eggPeekImage{width:84px;height:84px}.shadowAnimal{width:220px;height:220px;font-size:190px}.poemCard p{font-size:20px}.answer{font-size:21px;padding:14px 18px;min-height:76px}.answerThumb{width:54px;height:54px;border-radius:18px}.animalHero{font-size:96px}.animalHeroImage{width:140px;height:140px}}

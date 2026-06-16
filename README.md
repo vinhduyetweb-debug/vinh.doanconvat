@@ -38,3 +38,12 @@ Kéo thả thư mục lên Vercel hoặc chạy:
 ```bash
 vercel --prod
 ```
+
+
+## V1.1 Animal Image Pack
+
+- Added `assets/animals/*.webp` from the provided thumbnail pack.
+- Added `ANIMAL_IMAGES` mapping in `app.js`.
+- Animal images are shown in answer choices, egg reveal, info card, and fallback video modal.
+- If a current animal does not have a safe matching image, the app falls back to the existing emoji.
+- No storage schema, route, localStorage key, or deployment structure was changed.
